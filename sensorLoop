@@ -1,0 +1,27 @@
+int pumpPin = 12;
+void setup() {
+  Serial.begin(9600);
+  pinMode(pumpPin, OUTPUT);
+}
+
+void loop() {
+ 
+  int sensor0Value = analogRead(A0);
+  int sensor1Value = analogRead(A4);
+
+  Serial.println("Mary's sensor (black and white): ");
+  Serial.println(sensor0Value);
+  Serial.println("Haley's sensor (red and brown): ");
+  Serial.println(sensor1Value);
+  delay(3000);   
+  double average = (sensor0Value + sensor1Value) / 2;
+  if (average > 600) {
+    Serial.println("Turn on");
+    digitalWrite(pumpPin, HIGH);
+    delay(5000);
+    digitalWrite(pumpPin, LOW);
+    Serial.println("Turn off");
+  } else {
+    digitalWrite(pumpPin, LOW);
+  }
+}
